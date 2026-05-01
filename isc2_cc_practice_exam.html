@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISC2 CC Exam Practice</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0f2044;
+    --blue: #1a3d7c;
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --accent-mid: #93c5fd;
+    --green: #16a34a;
+    --green-bg: #dcfce7;
+    --red: #dc2626;
+    --red-bg: #fee2e2;
+    --gold: #d97706;
+    --gold-bg: #fef3c7;
+    --white: #ffffff;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-400: #94a3b8;
+    --gray-600: #475569;
+    --gray-800: #1e293b;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06);
+    --shadow-lg: 0 12px 40px rgba(15,32,68,0.14), 0 4px 12px rgba(15,32,68,0.08);
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--navy);
+    color: white;
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  }
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    gap: 16px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand-badge {
+    background: var(--accent);
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+  }
+  .brand-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: white;
+    letter-spacing: 0.2px;
+  }
+  .header-stats {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+  }
+  .stat-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.1);
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .stat-pill strong { color: white; }
+
+  /* ── CONTROLS BAR ── */
+  .controls-bar {
+    background: white;
+    border-bottom: 1px solid var(--gray-200);
+    padding: 0 24px;
+  }
+  .controls-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    flex-wrap: wrap;
+  }
+  .controls-label { font-size: 13px; color: var(--gray-600); font-weight: 500; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s ease;
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+  }
+  .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+  .btn-outline {
+    background: white;
+    color: var(--gray-600);
+    border: 1px solid var(--gray-200);
+  }
+  .btn-outline:hover { background: var(--gray-50); border-color: var(--gray-400); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--gray-600);
+    padding: 7px 10px;
+  }
+  .btn-ghost:hover { background: var(--gray-100); }
+
+  .mode-toggle {
+    display: flex;
+    background: var(--gray-100);
+    border-radius: 8px;
+    padding: 3px;
+    gap: 2px;
+    margin-left: auto;
+  }
+  .mode-btn {
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--gray-600);
+    transition: all 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .mode-btn.active {
+    background: white;
+    color: var(--navy);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* ── PROGRESS ── */
+  .progress-bar-wrap {
+    background: white;
+    border-bottom: 1px solid var(--gray-200);
+    padding: 0 24px 10px;
+  }
+  .progress-bar-inner { max-width: 900px; margin: 0 auto; }
+  .progress-track {
+    height: 4px;
+    background: var(--gray-200);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #3b82f6);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-top: 4px;
+  }
+
+  /* ── MAIN ── */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 28px 24px 80px;
+  }
+
+  /* ── QUIZ CARD ── */
+  .question-card {
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--gray-100);
+    background: var(--gray-50);
+  }
+  .q-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+  }
+  .q-tags {
+    display: flex;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  .tag-ai {
+    background: var(--accent-light);
+    color: var(--accent);
+  }
+  .tag-starred {
+    background: var(--gold-bg);
+    color: var(--gold);
+  }
+
+  .q-body { padding: 24px; }
+  .q-text {
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--gray-800);
+    line-height: 1.55;
+    margin-bottom: 24px;
+    font-family: 'DM Serif Display', serif;
+  }
+
+  /* ── OPTIONS ── */
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    border: 2px solid var(--gray-200);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    background: white;
+    text-align: left;
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .option:hover:not(:disabled) {
+    border-color: var(--accent-mid);
+    background: var(--accent-light);
+    transform: translateX(2px);
+  }
+  .option-letter {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--gray-100);
+    color: var(--gray-600);
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'DM Mono', monospace;
+    transition: all 0.15s;
+  }
+  .option-text {
+    font-size: 14.5px;
+    color: var(--gray-800);
+    line-height: 1.5;
+    padding-top: 4px;
+  }
+
+  .option.selected {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+  .option.selected .option-letter {
+    background: var(--accent);
+    color: white;
+  }
+  .option.correct {
+    border-color: var(--green);
+    background: var(--green-bg);
+  }
+  .option.correct .option-letter {
+    background: var(--green);
+    color: white;
+  }
+  .option.wrong {
+    border-color: var(--red);
+    background: var(--red-bg);
+  }
+  .option.wrong .option-letter {
+    background: var(--red);
+    color: white;
+  }
+  .option:disabled { cursor: default; }
+  .option:disabled:hover { transform: none; }
+
+  /* ── EXPLANATION ── */
+  .explanation-box {
+    margin: 20px 0 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--gray-200);
+    animation: slideUp 0.25s ease;
+  }
+  .exp-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .exp-header.correct-head { background: var(--green-bg); color: var(--green); }
+  .exp-header.wrong-head { background: var(--red-bg); color: var(--red); }
+  .exp-body {
+    padding: 14px 16px;
+    background: white;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--gray-700, #374151);
+    min-height: 48px;
+  }
+  .ai-thinking {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gray-400);
+    font-size: 13px;
+  }
+  .dots span {
+    display: inline-block;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent-mid);
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  .dots span:nth-child(2) { animation-delay: 0.2s; }
+  .dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes pulse {
+    0%, 80%, 100% { transform: scale(0.7); opacity: 0.5; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  /* ── Q FOOTER ── */
+  .q-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-top: 1px solid var(--gray-100);
+    background: var(--gray-50);
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .nav-group { display: flex; gap: 8px; }
+
+  /* ── SCORE PANEL ── */
+  .score-panel {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .score-card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    border: 1px solid var(--gray-200);
+  }
+  .score-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .score-label { font-size: 12px; color: var(--gray-400); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+  .score-correct .score-num { color: var(--green); }
+  .score-wrong .score-num { color: var(--red); }
+  .score-remaining .score-num { color: var(--accent); }
+
+  /* ── JUMP TO ── */
+  .jump-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .jump-input {
+    width: 80px;
+    padding: 7px 10px;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--gray-800);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .jump-input:focus { border-color: var(--accent); }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--gray-800);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: var(--shadow-lg);
+    transition: transform 0.3s ease;
+    z-index: 999;
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── SUMMARY VIEW ── */
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(52px, 1fr));
+    gap: 6px;
+  }
+  .grid-cell {
+    aspect-ratio: 1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.12s;
+    border: 2px solid transparent;
+  }
+  .grid-cell:hover { transform: scale(1.1); }
+  .grid-cell.cell-unanswered { background: var(--gray-100); color: var(--gray-600); border-color: var(--gray-200); }
+  .grid-cell.cell-correct { background: var(--green-bg); color: var(--green); border-color: #86efac; }
+  .grid-cell.cell-wrong { background: var(--red-bg); color: var(--red); border-color: #fca5a5; }
+
+  /* ── SECTION HEADING ── */
+  .section-h { font-size: 13px; font-weight: 600; color: var(--gray-600); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width: 600px) {
+    .score-panel { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .q-text { font-size: 15px; }
+    .header-stats { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand-badge">ISC²</span>
+      <span class="brand-title">Certified in Cybersecurity — CC Practice Exam</span>
+    </div>
+    <div class="header-stats">
+      <div class="stat-pill"><span>✓</span><strong id="hdr-correct">0</strong> correct</div>
+      <div class="stat-pill"><span>✗</span><strong id="hdr-wrong">0</strong> wrong</div>
+    </div>
+  </div>
+</header>
+
+<div class="controls-bar">
+  <div class="controls-inner">
+    <span class="controls-label">Mode:</span>
+    <div class="mode-toggle">
+      <button class="mode-btn active" onclick="setMode('quiz')" id="mode-quiz">Quiz</button>
+      <button class="mode-btn" onclick="setMode('review')" id="mode-review">Review All</button>
+      <button class="mode-btn" onclick="setMode('summary')" id="mode-summary">Summary</button>
+    </div>
+    <button class="btn btn-outline" onclick="shuffleQuestions()">🔀 Shuffle</button>
+    <button class="btn btn-outline" onclick="resetAll()">↺ Reset</button>
+  </div>
+</div>
+
+<div class="progress-bar-wrap">
+  <div class="progress-bar-inner">
+    <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+    <div class="progress-labels">
+      <span id="prog-label">Question 1 of 205</span>
+      <span id="prog-pct">0% answered</span>
+    </div>
+  </div>
+</div>
+
+<main class="main" id="main-content">
+  <!-- rendered by JS -->
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const QUESTIONS = [{"num":1,"text":"The address 8be2:4382:8d84:7ce2:ec0f:3908:d29a:903a is an:","options":{"A":"Web address","B":"IPv4 address","C":"IPv6 address","D":"Mac address"}},{"num":2,"text":"Which of the following canons is found in the ISC2 code of ethics?","options":{"A":"Advance and promote the profession","B":"Protect society, the common good, and the infrastructure","C":"Provide diligent and competent service to principals","D":"Act honorably, honestly, safely and legally"}},{"num":3,"text":"Which of the following is NOT an ethical canon of the ISC2?","options":{"A":"Advance and protect the profession","B":"Protect society, the common good, necessary public trust and confidence, and the infrastructure","C":"Act honorably, honestly, justly, responsibly and legally","D":"Provide active and qualified service to principal"}},{"num":4,"text":"The cloud deployment model where a company has resources on-premise and in the cloud is known as:","options":{"A":"Hybrid cloud","B":"Multi-tenant","C":"Private cloud","D":"Community cloud"}},{"num":5,"text":"Which of the following is a public IP?","options":{"A":"13.16.123.1","B":"192.168.123.1","C":"172.16.123.1","D":"10.221.123.1"}},{"num":6,"text":"Which of the following is a data handling policy procedure?","options":{"A":"Transform","B":"Collect","C":"Encode","D":"Destroy"}},{"num":7,"text":"Which devices would be more effective in detecting an intrusion into a network?","options":{"A":"Routers","B":"HIDS","C":"Firewalls","D":"NIDS"}},{"num":8,"text":"Which concept describes an information security strategy that integrates people, technology and operations in order to establish security controls across multiple layers of the organization?","options":{"A":"Least Privilege","B":"Defense in Depth","C":"Separation of Duties","D":"Privileged Accounts"}},{"num":9,"text":"Which access control is more effective at protecting a door against unauthorized access?","options":{"A":"Fences","B":"Turnstiles","C":"Barriers","D":"Locks"}},{"num":10,"text":"Which of the following is a detection control?","options":{"A":"Turnstiles","B":"Smoke sensors","C":"Bollards","D":"Firewalls"}},{"num":11,"text":"Which type of attack has the PRIMARY objective controlling the system from outside?","options":{"A":"Backdoors","B":"Rootkits","C":"Cross-Site Scripting","D":"Trojans"}},{"num":12,"text":"Which of the following is not a protocol of the OSI Level 3?","options":{"A":"SNMP","B":"ICMP","C":"IGMP","D":"IP"}},{"num":13,"text":"When a company hires an insurance company to mitigate risk, which risk management technique is being applied?","options":{"A":"Risk avoidance","B":"Risk transfer","C":"Risk mitigation","D":"Risk tolerance"}},{"num":14,"text":"The SMTP protocol operates at OSI Level:","options":{"A":"7","B":"25","C":"3","D":"23"}},{"num":15,"text":"The process of verifying or proving the user's identification is known as:","options":{"A":"Confidentiality","B":"Integrity","C":"Authentication","D":"Authorization"}},{"num":16,"text":"If an organization wants to protect itself against tailgating, which of the following types of access control would be most effective?","options":{"A":"Locks","B":"Fences","C":"Barriers","D":"Turnstiles"}},{"num":17,"text":"Logging and monitoring systems are essential to:","options":{"A":"Identifying inefficient performing systems, preventing compromises, and providing a record of how systems are used","B":"Identifying efficient performing systems, labeling compromises, and providing a record of how systems are used","C":"Identifying inefficient performing systems, detecting compromises, and providing a record of how systems are used","D":"Identifying efficient performing systems, detecting compromises, and providing a record of how systems are used"}},{"num":18,"text":"In the event of a disaster, which of these should be the PRIMARY objective? (★)","options":{"A":"Guarantee the safety of people","B":"Guarantee the continuity of critical systems","C":"Protection of the production database","D":"Application of disaster communication"}},{"num":19,"text":"The process that ensures that system changes do not adversely impact business operations is known as:","options":{"A":"Change Management","B":"Vulnerability Management","C":"Configuration Management","D":"Inventory Management"}},{"num":20,"text":"The last phase in the data security cycle is:","options":{"A":"Encryption","B":"Backup","C":"Archival","D":"Destruction"}},{"num":21,"text":"Which access control model specifies access to an object based on the subject's role in the organization?","options":{"A":"RBAC","B":"MAC","C":"DAC","D":"ABAC"}},{"num":22,"text":"Which of the following is NOT an example of a physical security control?","options":{"A":"Firewalls","B":"Biometric access controls","C":"Remote control electronic locks","D":"Security cameras"}},{"num":23,"text":"Which type of attack will most effectively maintain remote access and control over the victim's computer?","options":{"A":"Trojans","B":"Phishing","C":"Cross-Site Scripting","D":"Rootkits"}},{"num":24,"text":"In incident terminology, the meaning of Zero Day is:","options":{"A":"Days to solve a previously unknown system vulnerability","B":"A previously unknown system vulnerability","C":"Days without a cybersecurity incident","D":"Days with a cybersecurity incident"}},{"num":25,"text":"Which of the following is NOT a possible model for an Incident Response Team (IRT)?","options":{"A":"Leveraged","B":"Pre-existing","C":"Dedicated","D":"Hybrid"}},{"num":26,"text":"A device found not to comply with the security baseline should be:","options":{"A":"Disabled or separated into a quarantine area until a virus scan can be run","B":"Disabled or isolated into a quarantine area until it can be checked and updated.","C":"Placed in a demilitarized zone (DMZ) until it can be reviewed and updated","D":"Marked as potentially vulnerable and placed in a quarantine area"}},{"num":27,"text":"A biometric reader that grants access to a computer system in a data center is a:","options":{"A":"Administrative Control","B":"Physical Control","C":"Authorization Control","D":"Technical Control"}},{"num":28,"text":"Which type of attack PRIMARILY aims to make a resource inaccessible to its intended users?","options":{"A":"Denials of Service","B":"Phishing","C":"Trojans","D":"Cross-Site Scripting"}},{"num":29,"text":"Which type of attack embeds malicious payload inside a reputable or trusted software?","options":{"A":"Trojans","B":"Phishing","C":"Rootkits","D":"Cross-Site Scripting"}},{"num":30,"text":"Which tool is commonly used to sniff network traffic? (★)","options":{"A":"Burp Suite","B":"John the Ripper","C":"Wireshark","D":"Nslookup"}},{"num":31,"text":"Which of these is not an attack against an IP network?","options":{"A":"Side-channel Attack","B":"Man-in-the-middle Attack","C":"Fragmented Packet Attack","D":"Oversized Packet Attack"}},{"num":32,"text":"The detailed steps to complete tasks supporting departmental or organizational policies are typically documented in:","options":{"A":"Regulations","B":"Standards","C":"Policies","D":"Procedures"}},{"num":33,"text":"Which device is used to connect a LAN to the Internet?","options":{"A":"SIEM","B":"HIDS","C":"Router","D":"Firewall"}},{"num":34,"text":"What does SIEM mean?","options":{"A":"Security Information and Enterprise Manager","B":"Security Information and Event Manager","C":"System Information and Enterprise Manager","D":"System Information and Event Manager"}},{"num":35,"text":"A Security safeguard is the same as a:","options":{"A":"Safety control","B":"Privacy control","C":"Security control","D":"Security principle"}},{"num":36,"text":"Which access control model can grant access to a given object based on complex rules?","options":{"A":"DAC","B":"ABAC","C":"RBAC","D":"MAC"}},{"num":37,"text":"Which port is used to secure communication over the web (HTTPS)?","options":{"A":"69","B":"80","C":"25","D":"443"}},{"num":38,"text":"Which of these has the PRIMARY objective of identifying and prioritizing critical business processes?","options":{"A":"Business Impact Plan","B":"Business Impact Analysis","C":"Disaster Recovery Plan","D":"Business Continuity Plan"}},{"num":39,"text":"Which of the following are NOT types of security controls?","options":{"A":"Common controls","B":"Hybrid controls","C":"System-specific controls","D":"Storage controls"}},{"num":40,"text":"Which of the following is NOT a type of learning activity used in Security Awareness?","options":{"A":"Awareness","B":"Training","C":"Education","D":"Tutorial"}},{"num":41,"text":"The magnitude of the harm expected as a result of the consequences of an unauthorized disclosure, modification, destruction, or loss of information, is known as the:","options":{"A":"Vulnerability","B":"Threat","C":"Impact","D":"Likelihood"}},{"num":42,"text":"The implementation of Security Controls is a form of:","options":{"A":"Risk reduction","B":"Risk acceptance","C":"Risk avoidance","D":"Risk transference"}},{"num":43,"text":"Which of the following attacks take advantage of poor input validation in websites?","options":{"A":"Trojans","B":"Cross-Site Scripting","C":"Phishing","D":"Rootkits"}},{"num":44,"text":"Which of the following is an example of an administrative security control?","options":{"A":"Access Control Lists","B":"Acceptable Use Policies","C":"Badge Readers","D":"No entry signs"}},{"num":45,"text":"In Change Management, which component addresses the procedures needed to undo changes?","options":{"A":"Request for Approval","B":"Request for Change","C":"Rollback","D":"Disaster and Recover"}},{"num":46,"text":"Which of the following properties is NOT guaranteed by Digital Signatures?","options":{"A":"Authentication","B":"Confidentiality","C":"Non-Repudiation","D":"Integrity"}},{"num":47,"text":"Which devices have the PRIMARY objective of collecting and analyzing security events?","options":{"A":"Hubs","B":"Firewalls","C":"Routers","D":"SIEM"}},{"num":48,"text":"What is an effective way of hardening a system?","options":{"A":"Patch the system","B":"Have an IDS in place","C":"Run a vulnerability scan","D":"Create a DMZ for web application services"}},{"num":49,"text":"Which type of key can be used to both encrypt and decrypt the same message?","options":{"A":"A public key","B":"A private key","C":"An asymmetric key","D":"A symmetric key"}},{"num":50,"text":"Which regulations address data protection and privacy in Europe?","options":{"A":"SOX","B":"HIPAA","C":"FISMA","D":"GDPR"}},{"num":51,"text":"Which of the following types of devices inspect packet header information to either allow or deny network traffic?","options":{"A":"Hubs","B":"Firewalls","C":"Routers","D":"Switches"}},{"num":52,"text":"A web server that accepts requests from external clients should be placed in which network?","options":{"A":"Intranet","B":"DMZ","C":"Internal Network","D":"VPN"}},{"num":53,"text":"Sensitivity is a measure of the …:","options":{"A":"… protection and timeliness assigned to information by its owner, or the purpose of representing its need for urgency.","B":"… urgency and protection assigned to information by its owner.","C":"… importance assigned to information by its owner, or the purpose of representing its need for protection.","D":"… pertinence assigned to information by its owner, or the purpose of representing its need for urgency."}},{"num":54,"text":"How many data labels are considered good practice?","options":{"A":"2 - 3","B":"1","C":"1-2","D":">4"}},{"num":55,"text":"Security posters are an element PRIMARILY employed in: (★)","options":{"A":"Security Awareness","B":"Incident Response Plans","C":"Business Continuity Plans","D":"Physical Security Controls"}},{"num":56,"text":"Which of these types of user is LESS likely to have a privileged account?","options":{"A":"System Administrator","B":"Security Analyst","C":"Help Desk","D":"External Worker"}},{"num":57,"text":"Which of the following is NOT an element of System Security Configuration Management?","options":{"A":"Inventory","B":"Baselines","C":"Updates","D":"Audit logs"}},{"num":58,"text":"Which are the components of an incident response plan?","options":{"A":"Preparation -> Detection and Analysis -> Recovery -> Containment -> Eradication -> Post-Incident Activity","B":"Preparation -> Detection and Analysis -> Containment -> Eradication -> Post-Incident Activity -> Recovery","C":"Preparation -> Detection and Analysis -> Eradication -> Recovery -> Containment -> Post-Incident Activity","D":"Preparation -> Detection and Analysis -> Containment, Eradication and Recovery -> Post-Incident Activity"}},{"num":59,"text":"Which of the following is an example of 2FA?","options":{"A":"Badges","B":"Passwords","C":"Keys","D":"One-Time passwords (OTA)"}},{"num":60,"text":"The predetermined set of instructions or procedures to sustain business operations after a disaster is commonly known as:","options":{"A":"Business Impact Analysis","B":"Disaster Recovery Plan","C":"Business Impact Plan","D":"Business Continuity Plan"}},{"num":61,"text":"Which of the following is NOT a feature of a cryptographic hash function?","options":{"A":"Reversible","B":"Unique","C":"Deterministic","D":"Useful"}},{"num":62,"text":"Which are the three packets used on the TCP connection handshake? (★)","options":{"A":"Offer → Request → ACK","B":"SYN → SYN/ACK → ACK","C":"SYN → ACK → FIN","D":"Discover → Offer → Request"}},{"num":63,"text":"After an earthquake disrupting business operations, which document contains the procedures required to return business to normal operation?","options":{"A":"The Business Impact Plan","B":"The Business Impact Analysis","C":"The Business Continuity Plan","D":"The Disaster Recovery Plan"}},{"num":64,"text":"What is the consequence of a Denial Of Service attack?","options":{"A":"Exhaustion of device resources","B":"Malware Infection","C":"Increase in the availability of resources","D":"Remote control of a device"}},{"num":65,"text":"According to ISC2, which are the six phases of data handling?","options":{"A":"Create -> Use -> Store -> Share -> Archive -> Destroy","B":"Create -> Store -> Use -> Share -> Archive -> Destroy","C":"Create -> Share -> Use ->Store -> Archive -> Destroy","D":"Create -> Share -> Store -> Use -> Archive -> Destroy"}},{"num":66,"text":"Which of the following is less likely to be part of an incident response team?","options":{"A":"Legal representatives","B":"Human Resources","C":"Representatives of senior management","D":"Information security professionals"}},{"num":67,"text":"Which of these tools is commonly used to crack passwords? (★)","options":{"A":"Burp Suite","B":"Nslookup","C":"John the Ripper","D":"Wireshark"}},{"num":68,"text":"In order to find out whether personal tablet devices are allowed in the office, which of the following policies would be helpful to read?","options":{"A":"BYOD","B":"Privacy Policy","C":"Change Management Policy","D":"AUP"}},{"num":69,"text":"In which cloud deployment model do companies share resources and infrastructure on the cloud?","options":{"A":"Hybrid cloud","B":"Multi-tenant","C":"Private cloud","D":"Community cloud"}},{"num":70,"text":"Which of these is the PRIMARY objective of a Disaster Recovery Plan?","options":{"A":"Restore company operation to the last-known reliable operation state","B":"Outline a safe escape procedure for the organization's personnel","C":"Maintain crucial company operations in the event of a disaster","D":"Communicate to the responsible entities the damage caused to operations in the event of a disaster"}},{"num":71,"text":"An entity that acts to exploit a target organization's system vulnerabilities is a:","options":{"A":"Threat Vector","B":"Threat Actor","C":"Threat","D":"Attacker"}},{"num":72,"text":"A best practice of patch management is to:","options":{"A":"Apply all patches as quickly as possible","B":"Test patches before applying them","C":"Apply patches every Wednesday","D":"Apply patches according to the vendor's reputation"}},{"num":73,"text":"Which of these would be the best option if a network administrator needs to control access to a network?","options":{"A":"HIDS","B":"IDS","C":"SIEM","D":"NAC"}},{"num":74,"text":"Which of these is NOT a change management component?","options":{"A":"Approval","B":"RFC","C":"Rollback","D":"Governance"}},{"num":75,"text":"Which of the following is NOT a social engineering technique?","options":{"A":"Pretexting","B":"Quid pro quo","C":"Double-dealing","D":"Baiting"}},{"num":76,"text":"If there is no time constraint, which protocol should be employed to establish a reliable connection between two devices?","options":{"A":"TCP","B":"DHCP","C":"SNMP","D":"UDP"}},{"num":77,"text":"An exploitable weakness or flaw in a system or component is a:","options":{"A":"Threat","B":"Bug","C":"Vulnerability","D":"Risk"}},{"num":78,"text":"In which cloud model does the cloud customer have LESS responsibility over the infrastructure? (★)","options":{"A":"IaaS","B":"FaaS","C":"PaaS","D":"SaaS"}},{"num":79,"text":"Risk Management is:","options":{"A":"The assessment of the potential impact of a threat.","B":"The creation of an incident response team.","C":"The impact and likelihood of a threat.","D":"The identification, evaluation and prioritization of risks."}},{"num":80,"text":"Which of the following documents contains elements that are NOT mandatory?","options":{"A":"Policies","B":"Guidelines","C":"Regulations","D":"Procedures"}},{"num":81,"text":"In which of the following phases of an Incident Recovery Plan are incident responses prioritized?","options":{"A":"Post-incident Activity","B":"Detection and Analysis","C":"Preparation","D":"Contentment, Eradication, and Recovery"}},{"num":82,"text":"Which security principle states that a user should only have the necessary permission to execute a task?","options":{"A":"Privileged Accounts","B":"Separation of Duties","C":"Least Privilege","D":"Defense in Depth"}},{"num":83,"text":"The Bell and LaPadula access control model is a form of: (★)","options":{"A":"ABAC","B":"RBAC","C":"MAC","D":"DAC"}},{"num":84,"text":"In risk management, the highest priority is given to a risk where:","options":{"A":"The frequency of occurrence is low, and the expected impact value is high","B":"The expected probability of occurrence is low, and the potential impact is low","C":"The expected probability of occurrence is high, and the potential impact is low","D":"The frequency of occurrence is high, and the expected impact value is low"}},{"num":85,"text":"Which of the following areas is connected to PII?","options":{"A":"Non-Repudiation","B":"Authentication","C":"Integrity","D":"Confidentiality"}},{"num":86,"text":"According to the canon \"Provide diligent and competent service to principals\", ISC2 professionals are to:","options":{"A":"Take care not to tarnish the reputation of other professionals through malice or indifference.","B":"Treat all members fairly and,when resolving conflicts, consider public safety and duties to principals, individuals and","C":"Avoid apparent or actual conflicts of interest.","D":"Promote the understanding and acceptance of prudent information security measures."}},{"num":87,"text":"Malicious emails that aim to attack company executives are an example of:","options":{"A":"Trojans","B":"Whaling","C":"Phishing","D":"Rootkits"}},{"num":88,"text":"Governments can impose financial penalties as a consequence of breaking a:","options":{"A":"Regulation","B":"Standard","C":"Policy","D":"Procedure"}},{"num":89,"text":"Which type of attack attempts to trick the user into revealing personal information by sending a fraudulent message?","options":{"A":"Phishing","B":"Cross-Site Scripting","C":"Denials of Service","D":"Trojans"}},{"num":90,"text":"In which of the following access control models can the creator of an object delegate permission?","options":{"A":"ABAC","B":"MAC","C":"RBAC","D":"DAC"}},{"num":91,"text":"Which type of attack has the PRIMARY objective of encrypting devices and their data, and then demanding a ransom payment for the decryption key?","options":{"A":"Ransomware","B":"Trojan","C":"Cross-Site Scripting","D":"Phishing"}},{"num":92,"text":"Which of the following cloud models allows access to fundamental computer resources? (★)","options":{"A":"SaaS","B":"FaaS","C":"PaaS","D":"IaaS"}},{"num":93,"text":"How many layers does the OSI model have?","options":{"A":"7","B":"4","C":"6","D":"5"}},{"num":94,"text":"Which of the following principles aims primarily at fraud detection?","options":{"A":"Privileged Accounts","B":"Defense in Depth","C":"Least Privilege","D":"Separation of Duties"}},{"num":95,"text":"Which protocol uses a three-way handshake to establish a reliable connection?","options":{"A":"TCP","B":"SMTP","C":"UDP","D":"SNMP"}},{"num":96,"text":"Which of the following is an example of a technical security control?","options":{"A":"Access control lists","B":"Turnstiles","C":"Fences","D":"Bollards"}},{"num":97,"text":"Which type of attack attempts to gain information by observing the device's power consumption? (★)","options":{"A":"Side Channels","B":"Trojans","C":"Cross Site Scripting","D":"Denials of Service"}},{"num":98,"text":"Which of the following areas is the most distinctive property of PHI?","options":{"A":"Integrity","B":"Confidentiality","C":"Non-Repudiation","D":"Authentication"}},{"num":99,"text":"Which of these is the most efficient and effective way to test a business continuity plan?","options":{"A":"Simulations","B":"Walkthroughs","C":"Reviews","D":"Discussions"}},{"num":100,"text":"Which of the following Cybersecurity concepts guarantees that information is accessible only to those authorized to access it?","options":{"A":"Confidentiality","B":"Non-repudiation","C":"Authentication","D":"Accessibility"}},{"num":101,"text":"In the event of a disaster, what should be the PRIMARY objective? (★)","options":{"A":"Apply disaster communication","B":"Protect the production database","C":"Guarantee the safety of people","D":"Guarantee the continuity of critical systems"}},{"num":102,"text":"A security professional should report violations of a company's security policy to:","options":{"A":"The ISC Ethics Committee","B":"Company management","C":"National authorities","D":"A court of law"}},{"num":103,"text":"Which department in a company is NOT regularly involved in a DRP?","options":{"A":"Executives","B":"IT","C":"Public Relations","D":"Financial"}},{"num":104,"text":"Which of the following is included in an SLA document?","options":{"A":"A plan to prepare the organization for the continuation of critical business functions","B":"A plan to keep business operations going while recovering from a significant disruption","C":"Instructions to detect, respond to, and limit the consequences of a cyber-attack","D":"Instructions on data ownership and destruction"}},{"num":105,"text":"What is the most important difference between MAC and DAC?","options":{"A":"In MAC, security administrators set the roles for the users; in DAC, roles are set at the object owner's discretion","B":"In MAC, security administrators assign access permissions; in DAC, security administrators set user roles","C":"In MAC, security administrators assign access permissions; in DAC, access permissions are set at the object owner's","D":"In MAC, access permissions are set at the object owner's discretion; in DAC, it is up to security administrators to"}},{"num":106,"text":"Requiring a specific user role to access resources is an example of:","options":{"A":"MAC","B":"ABAC","C":"RBAC","D":"DAC"}},{"num":107,"text":"Which type of document outlines the procedures ensuring that vital company systems keep running during businessdisrupting events?","options":{"A":"Business Impact Plan","B":"Business Impact Analysis","C":"Disaster Recovery Plan","D":"Business Continuity Plan"}},{"num":108,"text":"Which of the following is NOT a best practice in access management?","options":{"A":"Give only the right amount of permission","B":"Periodically assess if user permissions still apply","C":"Request a justification when upgrading permission","D":"Trust but verify"}},{"num":109,"text":"If a company collects PII, which policy is required?","options":{"A":"Remote Access Policy","B":"GDPR","C":"Privacy Policy","D":"Acceptable Use Policy"}},{"num":110,"text":"Which of these is LEAST likely to be installed by an infection?","options":{"A":"Logic Bomb","B":"Keylogger","C":"Trojan","D":"Backdoor"}},{"num":111,"text":"(★) The best defense method to stop a 'Replay Attack' is to:","options":{"A":"Use an IPSec VPN","B":"Use a Firewall","C":"Use password authentication","D":"Use message digesting"}},{"num":112,"text":"Which of these devices has the PRIMARILY objective of determining the most efficient path for the traffic to flow across the networks?","options":{"A":"Hubs","B":"Firewalls","C":"Routers","D":"Switches"}},{"num":113,"text":"Which of these types of malware self-replicates without the need for human intervention?","options":{"A":"Worm","B":"Trojan","C":"Virus","D":"Rootkits"}},{"num":114,"text":"As an (ISC)² member, you are expected to perform with due care. What does 'due care' specifically mean?","options":{"A":"Do what is right in each situation you encounter on the job","B":"Give continuity to the legacy of security practices of your company","C":"Apply patches annually","D":"Researching and acquiring the knowledge to do your job right"}},{"num":115,"text":"(★) Which of these is NOT a best practice in access management?","options":{"A":"Periodically assessing whether user permissions still apply","B":"Requesting a justification when upgrading permission","C":"Giving only the right amount of permission","D":"Trust but verify"}},{"num":116,"text":"During the investigation of an incident, which security policies are more likely to cause difficulties?","options":{"A":"Configuration standards","B":"Incident response policies","C":"Communication policies","D":"Retention policies"}},{"num":117,"text":"In an Access Control List (ACL), the element that determines which permissions you have is:","options":{"A":"The subject","B":"The object","C":"The firmware","D":"The rule"}},{"num":118,"text":"What does the term 'data remanence' refer?","options":{"A":"Data in use that can't be encrypted","B":"Files saved locally that can't be remoted accessed","C":"Data left over after routine removal and deletion","D":"All of the data in a system"}},{"num":119,"text":"(★) Which type of recovery site has some or most systems in place, but does not have the data needed to take over operations?","options":{"A":"A hot site","B":"A cloud site","C":"A warm site","D":"A cold site"}},{"num":120,"text":"Which of these is NOT a characteristic of an MSP implementation?","options":{"A":"Manage all in-house company infrastructure","B":"Monitor and respond to security incidents","C":"Mediate, execute and decide top-level decisions","D":"Utilize expertise for the implementation of a product or service"}},{"num":121,"text":"Which of these is NOT a typical component of a comprehensive business continuity plan (BCP)?","options":{"A":"A cost prediction of the immediate response procedures","B":"Immediate response procedures and checklists","C":"Notification systems and call trees for alerting personnel","D":"A list of the BCP team members"}},{"num":122,"text":"Acting ethically is mandatory for (ISC)² members. Which of these is NOT considered unethical?","options":{"A":"Disrupting the intended use of the internet","B":"Seeking to gain unauthorized access to resources on thae internet","C":"Compromising the privacy of users","D":"Having fake social media profiles and accounts"}},{"num":123,"text":"In an incident response process, which phase uses indicators of compromise and log analysis as part of a review of events?","options":{"A":"Preparation","B":"Eradication","C":"Identification","D":"Containment"}},{"num":124,"text":"Which of these Access Control Systems is commonly used in the military?","options":{"A":"ABAC","B":"DAC","C":"RBAC","D":"MAC"}},{"num":125,"text":"Which of these is NOT a security principle?","options":{"A":"Security in Depth (SID)","B":"Zero Trust model","C":"Least Privilege","D":"Separation of Duties"}},{"num":126,"text":"Which of these is not a common goal of a cybersecurity attacker?","options":{"A":"Allocation","B":"Alteration","C":"Disclosure","D":"Denial"}},{"num":127,"text":"Which of these types of layers is NOT part of the TCP/IP model?","options":{"A":"Application","B":"Physical","C":"Internet","D":"Transport"}},{"num":128,"text":"On a BYOD model, which of these technologies is best suited to keep corporate data and applications separate from personal?","options":{"A":"Biometrics","B":"Full-device encryption","C":"Context-aware authentication","D":"Containerization"}},{"num":129,"text":"In the context of risk management, which information does ALE outline?","options":{"A":"The expected cost per year of not performing a given risk-mitigating action","B":"The business impact of a risk","C":"The percentage of Asset Lost Efficiency","D":"The probability of a risk coming to pass in a given year"}},{"num":130,"text":"Which of these techniques is PRIMARILY used to ensure data integrity?","options":{"A":"Message Digest","B":"Content Encryption","C":"Backups","D":"Hashing"}},{"num":131,"text":"Which of these is an example of a privacy breach?","options":{"A":"Any observable occurrence in a network or system","B":"Being exposed to the possibility of attack","C":"Unavailability of critical systems","D":"Access of private information by an unauthorized person"}},{"num":132,"text":"Which of these terms refers to a collection of fixes?","options":{"A":"Downgrade","B":"Patch","C":"Service Pack","D":"Hotfix"}},{"num":133,"text":"While performing background checks on new employees, which of these can NEVER be an attribute for discrimination?","options":{"A":"Employment history, references, criminal records","B":"Credit history, employment history, references","C":"Criminal Records, credit history, references","D":"References, education, political affiliation, employment history"}},{"num":134,"text":"When looking for cybersecurity insurance, which of these is the MOST IMPORTANT objective?","options":{"A":"Risk acceptance","B":"Risk transference","C":"Risk avoidance","D":"Risk spreading"}},{"num":135,"text":"Which of these documents is MORE directly related to what can be done with a system or with its information?","options":{"A":"SLA","B":"MOA","C":"MOU","D":"ROE"}},{"num":136,"text":"Which kind of document outlines the procedures ensuring that vital company systems keep running during businessdisrupting events?","options":{"A":"Business Impact Analysis","B":"Business Impact Plan","C":"Business Continuity Plan","D":"Disaster Recovery Plan"}},{"num":137,"text":"Which of these social engineering attacks sends emails that target specific individuals?","options":{"A":"Pharming","B":"Whaling","C":"Vishing","D":"Spear phishing"}},{"num":138,"text":"(★) Which of these properties is NOT guaranteed by a Message Authentication Code (MAC)?","options":{"A":"Authenticity","B":"Anonymity","C":"Integrity","D":"Non-repudiation"}},{"num":139,"text":"What is the PRIMARY objective of a degaussing?","options":{"A":"Preventing magnetic side-channel attacks","B":"Reducing noisy data on a disk","C":"Erasing the data on a disk","D":"Retaining the data on a disk"}},{"num":140,"text":"Which of these is part of the canons (ISC)² code of ethics?","options":{"A":"Provide diligent and competent services to stakeholders","B":"Advance and protect the profession","C":"Prevent and detect unauthorized use of digital assets in a society","D":"Act always in the best interest of your client"}},{"num":141,"text":"Which of these is NOT one of the (ISC)² ethics canons?","options":{"A":"Act honorably, honestly, justly, responsibly, and legally","B":"Consider the social consequences of the systems you are designing","C":"Protect society, the common good, necessary public trust and confidence, and the infrastructure","D":"Provide diligent and competent service to principals"}},{"num":142,"text":"(★) Which of these is the PRIMARY objective of the PCI-DSS standard?","options":{"A":"Personally Identifiable Information (PII)","B":"Change Management","C":"Secure Credit Cards Payments","D":"Protected Health Information (PHI)"}},{"num":143,"text":"Which of these is an attack that encrypts the organization's information, and then demands payment for the decryption code?","options":{"A":"Phishing","B":"DDoS","C":"Spoofing","D":"Ransomware"}},{"num":144,"text":"The PRIMARY objective of a business continuity plan is:","options":{"A":"To regularly verify whether the organization complies with applicable regulations","B":"To sustain business operations while recovering from a disruption","C":"To assess the impact of disruption to the business","D":"To restore the business to the full last-known reliable state of operations"}},{"num":145,"text":"Which of these is an attack whose PRIMARY goal is to gain access to a target system through falsified identity?","options":{"A":"Ransomware","B":"Amplification","C":"Spoofing","D":"DDoS"}},{"num":146,"text":"When an incident occurs, which of these is not a PRIMARY responsibility of an organization's response team?","options":{"A":"Determining the scope of the damage caused by the incident","B":"Implementing the recovery procedures necessary to restore security and recover from any incident-related damage","C":"Determining whether any confidential information has been compromised over the course of the entire incident","D":"Communicating with top management regarding the circumstances of the cybersecurity event"}},{"num":147,"text":"What is the PRIMARY objective of a rollback in the context of the change management process?","options":{"A":"Identify the required changes needed","B":"Validate the system change process","C":"Restore the system to its last state before the change was made","D":"Establish a minimum understood and acceptable level of security requirements"}},{"num":148,"text":"Which of these entities is responsible for signing an organization's policies?","options":{"A":"Human Resources","B":"Security engineer","C":"Financial Department","D":"Senior management"}},{"num":149,"text":"Which of these terms refers to threats with unusually high technical and operational sophistication, spanning months or even years?","options":{"A":"Rootkit","B":"APT","C":"Side-channel","D":"Ping of death"}},{"num":150,"text":"The PRIMARY objective of a security baseline is to establish ...","options":{"A":". a minimum understood and a good level of security requirements","B":"a minimum understood and acceptable level of security requirements","C":"security and configuration requirements","D":"a maximum understood and an acceptable level of security requirements"}},{"num":151,"text":"Which of these attacks take advantage of inadequate input validation in websites?","options":{"A":"Phishing","B":"Trojans","C":"Cross-Site Scripting","D":"Rootkits"}},{"num":152,"text":"An organization needs a network security tool that detects and acts in the event of malicious activity. Which of these tools will BEST meet their needs?","options":{"A":"Router","B":"IPS","C":"IDS","D":"Firewall"}},{"num":153,"text":"In a DAC policy scenario, which of these tasks can only be performed by a subject granted access to information?","options":{"A":"Changing security attributes","B":"Reading the information","C":"Executing the information","D":"Modifying the information"}},{"num":154,"text":"In the event of non-compliance, which of these can have considerable financial consequences for an organization?","options":{"A":"Policies","B":"Regulations","C":"Guidelines","D":"Standards"}},{"num":155,"text":"What does the term LAN refer to?","options":{"A":"A tool to manage and control network traffic, as well as to protect a network.","B":"A network on a building or limited geographical area","C":"A device that connects multiple other devices in a network","D":"A long-distance connection between geographically-distant networks"}},{"num":156,"text":"Which of these is a type of corrective security control?","options":{"A":"Patches","B":"Intrusion detection systems","C":"Guidelines","D":"Encryption"}},{"num":157,"text":"Which of these enables point-to-point online communication over an untrusted network?","options":{"A":"VLAN","B":"Firewall","C":"Router","D":"VPN"}},{"num":158,"text":"At which of the OSI layers do TCP and UDP work?","options":{"A":"Transport Layer","B":"Session Layer","C":"Application Layer","D":"Physical Layer"}},{"num":159,"text":"(★) Which is the PRIMARY focus of the ISO 27002 standard?","options":{"A":"Health Insurance Portability and Accountability Act (HIPAA)","B":"Information Security Management System (ISMS)","C":"Risk Management","D":"Application Security"}},{"num":160,"text":"(★) Which of these different sub-masks will allow 30 hosts?","options":{"A":"/26","B":"/30","C":"/27","D":"/29"}},{"num":161,"text":"(★) Which of these statements about the security implications of IPv6 is NOT true?","options":{"A":"Rules based on static IPv6 addresses may not work","B":"IPv6's NAT implementation is insecure","C":"IPv6 traffic may bypass existing security controls","D":"IPv6 reputation services may not be mature and useful"}},{"num":162,"text":"Which of these is a type of detective access control?","options":{"A":"Bollards","B":"Movement Sensors","C":"Turnstiles","D":"Firewalls"}},{"num":163,"text":"The name, age, location and job title of a person are all examples of:","options":{"A":"Biometric factors","B":"Attributes","C":"Account permissions","D":"Identity factors"}},{"num":164,"text":"Which cloud service model provides the most suitable environment for customers who want to install their custom operating system?","options":{"A":"SaaS","B":"SLA","C":"IaaS","D":"PaaS"}},{"num":165,"text":"(★) Which of these statements is TRUE about cybersquatting?","options":{"A":"Its an unethical practice but everyone does it","B":"It is partially illegal practice","C":"It is an illegal practice","D":"It is s a legal practice"}},{"num":166,"text":"Which of these addresses is commonly reserved specifically for broadcasting?","options":{"A":"192.299.121.254","B":"192.299.121.0","C":"192.299.121.14","D":"192.299.121.255"}},{"num":167,"text":"Which department in a company is NOT typically involved in a Disaster Recovery Plan (DRP)?","options":{"A":"Executive","B":"Financial","C":"Public Relations","D":"IT"}},{"num":168,"text":"Which of these pairs does NOT constitute Multi-Factor Authentication (MFA)?","options":{"A":"Fingerprint and password.","B":"Username and retina scan.","C":"Password and username.","D":"PIN and credit card."}},{"num":169,"text":"Which method is COMMONLY used to map live hosts in the network?","options":{"A":"Geolocation","B":"Traceroute","C":"Ping sweep","D":"Wireshark"}},{"num":170,"text":"A poster reminding the best password management practices is an example of which type of learning activity?","options":{"A":"Awareness","B":"Schooling","C":"Education","D":"Training"}},{"num":171,"text":"Which part of the CIA Triad will be PRIMARILY jeopardized in a Distributed Denial Of Service (DDOS) attack?","options":{"A":"Accountability","B":"Availability","C":"Integrity","D":"Confidentiality"}},{"num":172,"text":"(★) What technology is MOST LIKELY to conserve the storage space required for video recordings?","options":{"A":"Motion detection","B":"PTZ","C":"Facial recognition","D":"Infrared cameras"}},{"num":173,"text":"An organization that uses a layered approach when designing its security architecture is using which of these security approaches?","options":{"A":"Zero trust","B":"Defense in depth","C":"Network Layers","D":"Network Control Access"}},{"num":174,"text":"Which of these techniques will ensure the property of 'non-repudiation'?","options":{"A":"Using a VPN","B":"Passwords","C":"Encryption","D":"Digital signatures"}},{"num":175,"text":"(★) A USB pen with data passed around the office is an example of:","options":{"A":"Data in motion","B":"Data at rest","C":"Data in transit","D":"Data in use"}},{"num":176,"text":"Suppose that an organization wants to implement measures to strengthen its detective access controls. Which one of these tools should they implement?","options":{"A":"Patches","B":"Encryption","C":"IDS","D":"Backups"}},{"num":177,"text":"(★) Which of these is an example of a MAC address?","options":{"A":"00-51-02-1F-58-F6","B":"0051021f58","C":"10.23.19.49","D":"2001 : db8: 3333 : 4444 : 5555 : 6666 : 7777 : 8888"}},{"num":178,"text":"Which of these types of credentials is NOT used in multi-factor authentication?","options":{"A":"Something you have","B":"Something you know","C":"Something you are","D":"Something you trust"}},{"num":179,"text":"On an Incident Response team, which role acts as the team's main link to Senior Management?","options":{"A":"Information security","B":"Communications and public relations","C":"Management","D":"Technical expert"}},{"num":180,"text":"Which of these is NOT an effective way to protect an organization from cybercriminals?","options":{"A":"Removing or disabling unneeded services and protocols","B":"Using firewalls","C":"Using out-dated anti-malware software","D":"Using intrusion detection and prevention systems"}},{"num":181,"text":"Which of these CANNOT be a corrective security control?","options":{"A":"Disaster Recovery Plan","B":"Backups","C":"Patches","D":"Bollards"}},{"num":182,"text":"Which of these is included in an SLA document?","options":{"A":"Instructions on data ownership and destruction","B":"Instructions to detect, respond to, and limit the consequences of a cyber-attack","C":"A plan to keep business operations going while recovering from a significant disruption","D":"A plan to prepare the organization for the continuation of critical business functions"}},{"num":183,"text":"Which port number corresponds to the Simple Mail Transfer Protocol (SMTP)?","options":{"A":"161","B":"69","C":"25","D":"22"}},{"num":184,"text":"Which type of attack attempts to mislead the user into exposing personal information by sending fraudulent emails?","options":{"A":"Cross-Site Scripting","B":"Denial of Service","C":"Trojans","D":"Phishing"}},{"num":185,"text":"Which of these is NOT a characteristic of the cloud?","options":{"A":"Zero Customer Responsibility","B":"Broad Network Access","C":"Measured Service","D":"Rapid Elasticity"}},{"num":186,"text":"Which of these is a COMMON mistake made when implementing record retention policies?","options":{"A":"Not categorizing the type of information to be retained","B":"Not labeling the type of information to be retained","C":"Applying the longest retention periods to the information","D":"Applying shorter retention periods to the information"}},{"num":187,"text":"Which type of security control does NOT include CCTV cameras?","options":{"A":"Corrective","B":"Deterrent","C":"Preventive","D":"Detective"}},{"num":188,"text":"A security consultant hired to design the security policies for the PHI within an organization will be primarily handling:","options":{"A":"Personal Health information","B":"Public Health information","C":"Procedural Health information","D":"Protected Health information"}},{"num":189,"text":"Which of these cloud deployment models is a combination of public and private cloud storage?","options":{"A":"Community","B":"Private","C":"Hybrid","D":"Public"}},{"num":190,"text":"What is the primary goal of a Change Management Policy?","options":{"A":"To standardize the creation of the organization's network and computer systems","B":"To guarantee that systems are up to date with the latest security patch","C":"To standardize the usage of the organization's network and computer systems","D":"To guarantee that system changes are performed without negatively affecting business operations"}},{"num":191,"text":"Which of these is NOT a feature of a SIEM (Security Information and Event Management)?","options":{"A":"Log auditing","B":"Log encryption","C":"Log consolidation","D":"Log retention"}},{"num":192,"text":"Which of these technologies is the LEAST effective means of preventing shared accounts?","options":{"A":"Requiring a one-time password via an application","B":"Requiring one-time passwords via a token","C":"Password complexity requirements","D":"Requiring biometric authentication"}},{"num":193,"text":"Which of these is NOT a best practice in access management?","options":{"A":"Trust but verify","B":"Periodically assessing whether user permissions still apply","C":"Giving only the right amount of permission","D":"Requesting a justification when upgrading permission"}},{"num":194,"text":"(★) When analyzing risks, which of these activities is required?","options":{"A":"Accepting all evaluated risks","B":"Identifying risks associated with loss of confidentiality","C":"Determining the likelihood of occurrence of a set of risks","D":"Selecting the appropriate controls"}},{"num":195,"text":"Which of these exercises goes through a sample of an incident step-by-step, validating what each person will do?","options":{"A":"A simulation exercise","B":"A walk-through exercise","C":"A tabletop exercise","D":"A checklist exercise"}},{"num":196,"text":"(★) Which of these types of documents is usually THE LEAST formal?","options":{"A":"Standards","B":"Guidelines","C":"Policies","D":"Regulations"}},{"num":197,"text":"A backup that captures the changes made since the latest full backup is an example of:","options":{"A":"A differential backup","B":"An incremental backup","C":"A backup snapshot","D":"A full backup"}},{"num":198,"text":"A high-level executive of an organization receives a malicious email that tries to trick him. Which attack is the perpetrator using?","options":{"A":"DDOS","B":"Whaling","C":"Phishing","D":"Spear phishing"}},{"num":199,"text":"What does redundancy mean in the context of cybersecurity?","options":{"A":"Designing systems with robust components, so that the organization has more attack resilience","B":"Conceiving systems with only the most necessary components, so that the organization has just the necessary risks.","C":"Conceiving systems with less attack surface, so that the attacker has less chance of success","D":"Conceiving systems with duplicate components so that, if a failure occurs, there will be a backup"}},{"num":200,"text":"When a company collects PII, which policy is required?","options":{"A":"Remote Access Policy","B":"GDPR","C":"Privacy Policy","D":"Acceptable Use Policy"}},{"num":201,"text":"Which type of attack PRIMARILY aims to consume all the available resources, thereby making an organization's service inaccessible to its intended users?","options":{"A":"Trojans","B":"Cross-Site Scripting","C":"Denial of Service","D":"Phishing"}},{"num":202,"text":"Which one of these tools is MOST likely to detect an XSS vulnerability?","options":{"A":"Network vulnerability scanner","B":"Static application test","C":"Intrusion detection system","D":"Web application vulnerability scanner"}},{"num":203,"text":"Which kind of physical access control is LESS effective at preventing unauthorized individual access to a data center?","options":{"A":"Turnstiles","B":"Barriers","C":"Fences","D":"Bollards"}},{"num":204,"text":"Which of these is NOT a type of malware?","options":{"A":"Trojan","B":"Worm","C":"Spoofing","D":"Rootkit"}},{"num":205,"text":"Which security principle states that a user should only have the necessary permission to execute a task?","options":{"A":"Privileged Accounts","B":"Separation of Duties","C":"Least Privilege","D":"Defense in Depth"}}];
+
+// ── STATE ──
+let questions = [...QUESTIONS];
+let currentIdx = 0;
+let answers = {}; // { qNum: { selected, correct, explanation } }
+let mode = 'quiz';
+
+// ── HELPERS ──
+function answered(q) { return answers[q.num] !== undefined; }
+function isCorrect(q) { return answers[q.num]?.isCorrect; }
+function isStarred(q) { return q.text.includes('★'); }
+
+function updateHeaderStats() {
+  const correct = Object.values(answers).filter(a => a.isCorrect).length;
+  const wrong = Object.values(answers).filter(a => !a.isCorrect).length;
+  document.getElementById('hdr-correct').textContent = correct;
+  document.getElementById('hdr-wrong').textContent = wrong;
+}
+
+function updateProgress() {
+  const total = questions.length;
+  const done = questions.filter(q => answered(q)).length;
+  const pct = Math.round((done / total) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = `Question ${currentIdx + 1} of ${total}`;
+  document.getElementById('prog-pct').textContent = `${pct}% answered`;
+}
+
+function showToast(msg, dur = 2200) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), dur);
+}
+
+// ── AI EXPLANATION ──
+async function getExplanation(q, selected) {
+  const opts = Object.entries(q.options).map(([k,v]) => `${k}. ${v}`).join('\n');
+  const prompt = `You are an ISC2 CC (Certified in Cybersecurity) exam expert. A student answered a multiple-choice question.
+
+Question: ${q.text}
+Options:
+${opts}
+Student selected: ${selected}. ${q.options[selected]}
+
+First, state the correct answer (letter and text). Then in 2-3 concise sentences, explain WHY that answer is correct for the ISC2 CC exam. Be precise and educational. Do not use markdown formatting.`;
+
+  const resp = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 1000,
+      messages: [{ role: 'user', content: prompt }]
+    })
+  });
+  const data = await resp.json();
+  return data.content?.[0]?.text || 'Explanation unavailable.';
+}
+
+// ── RENDER ──
+function render() {
+  if (mode === 'summary') { renderSummary(); return; }
+  if (mode === 'review') { renderReview(); return; }
+  renderQuiz();
+}
+
+function renderQuiz() {
+  const q = questions[currentIdx];
+  const ans = answers[q.num];
+  const isAnswered = ans !== undefined;
+
+  updateProgress();
+
+  const optionsHtml = Object.entries(q.options).map(([letter, text]) => {
+    let cls = '';
+    let disabled = isAnswered ? 'disabled' : '';
+    if (isAnswered) {
+      if (letter === ans.correct) cls = 'correct';
+      else if (letter === ans.selected && letter !== ans.correct) cls = 'wrong';
+    }
+    if (!isAnswered && ans?.selected === letter) cls = 'selected';
+    return `<button class="option ${cls}" ${disabled} onclick="selectAnswer('${letter}', ${q.num})">
+      <div class="option-letter">${letter}</div>
+      <div class="option-text">${text}</div>
+    </button>`;
+  }).join('');
+
+  let expHtml = '';
+  if (isAnswered) {
+    const headCls = ans.isCorrect ? 'correct-head' : 'wrong-head';
+    const icon = ans.isCorrect ? '✓ Correct' : '✗ Incorrect';
+    const expContent = ans.explanation
+      ? ans.explanation
+      : `<div class="ai-thinking">Getting AI explanation <div class="dots"><span></span><span></span><span></span></div></div>`;
+    expHtml = `<div class="explanation-box">
+      <div class="exp-header ${headCls}">${icon}</div>
+      <div class="exp-body" id="exp-body-${q.num}">${expContent}</div>
+    </div>`;
+  }
+
+  const prevDisabled = currentIdx === 0 ? 'disabled' : '';
+  const nextDisabled = currentIdx === questions.length - 1 ? 'disabled' : '';
+
+  document.getElementById('main-content').innerHTML = `
+    <div class="score-panel">
+      <div class="score-card score-correct">
+        <div class="score-num">${Object.values(answers).filter(a=>a.isCorrect).length}</div>
+        <div class="score-label">Correct</div>
+      </div>
+      <div class="score-card score-wrong">
+        <div class="score-num">${Object.values(answers).filter(a=>!a.isCorrect).length}</div>
+        <div class="score-label">Incorrect</div>
+      </div>
+      <div class="score-card score-remaining">
+        <div class="score-num">${questions.filter(q=>!answered(q)).length}</div>
+        <div class="score-label">Remaining</div>
+      </div>
+    </div>
+
+    <div class="jump-bar">
+      <span class="controls-label">Jump to #</span>
+      <input class="jump-input" type="number" min="1" max="${questions.length}" id="jump-input" placeholder="1–${questions.length}">
+      <button class="btn btn-outline" onclick="jumpTo()">Go</button>
+    </div>
+
+    <div class="question-card">
+      <div class="q-header">
+        <span class="q-num">QUESTION ${currentIdx + 1} / ${questions.length} &nbsp;·&nbsp; #${q.num}</span>
+        <div class="q-tags">
+          ${isStarred(q) ? '<span class="tag tag-starred">★ Priority</span>' : ''}
+          <span class="tag tag-ai">AI Explanations</span>
+        </div>
+      </div>
+      <div class="q-body">
+        <div class="q-text">${q.text.replace('(★)','').replace('★','').trim()}</div>
+        <div class="options">${optionsHtml}</div>
+        ${expHtml}
+      </div>
+      <div class="q-footer">
+        <div class="nav-group">
+          <button class="btn btn-outline" onclick="navigate(-1)" ${prevDisabled}>← Prev</button>
+          <button class="btn btn-outline" onclick="navigate(1)" ${nextDisabled}>Next →</button>
+        </div>
+        ${isAnswered && currentIdx < questions.length - 1
+          ? `<button class="btn btn-primary" onclick="navigate(1)">Continue →</button>`
+          : ''}
+      </div>
+    </div>
+  `;
+}
+
+async function selectAnswer(letter, qNum) {
+  const q = questions.find(q => q.num === qNum);
+  if (!q || answers[q.num]) return;
+
+  // Show selected state immediately
+  document.querySelectorAll('.option').forEach(btn => btn.disabled = true);
+
+  // Get AI explanation (async)
+  answers[q.num] = { selected: letter, correct: null, isCorrect: null, explanation: null };
+  render();
+
+  try {
+    const expText = await getExplanation(q, letter);
+    // Parse correct answer from AI response
+    const match = expText.match(/correct answer is ([A-D])[.:\s]/i) || expText.match(/^([A-D])[.:]/m);
+    let correctLetter = match ? match[1].toUpperCase() : null;
+
+    // Fallback: try to infer from the text
+    if (!correctLetter) {
+      for (const [k, v] of Object.entries(q.options)) {
+        if (expText.toLowerCase().includes(v.toLowerCase().substring(0, 20))) {
+          correctLetter = k; break;
+        }
+      }
+    }
+    if (!correctLetter) correctLetter = letter; // fallback
+
+    answers[q.num] = {
+      selected: letter,
+      correct: correctLetter,
+      isCorrect: letter === correctLetter,
+      explanation: expText
+    };
+  } catch(e) {
+    // Fallback if API fails
+    answers[q.num] = {
+      selected: letter,
+      correct: letter,
+      isCorrect: true,
+      explanation: 'AI explanation unavailable. Please review the ISC2 CC study guide for this topic.'
+    };
+  }
+
+  updateHeaderStats();
+  render();
+}
+
+function navigate(dir) {
+  currentIdx = Math.max(0, Math.min(questions.length - 1, currentIdx + dir));
+  render();
+}
+
+function jumpTo() {
+  const val = parseInt(document.getElementById('jump-input')?.value);
+  if (val >= 1 && val <= questions.length) {
+    currentIdx = val - 1;
+    render();
+  }
+}
+
+function renderSummary() {
+  const correct = Object.values(answers).filter(a => a.isCorrect).length;
+  const wrong = Object.values(answers).filter(a => !a.isCorrect).length;
+  const total = questions.length;
+  const done = correct + wrong;
+  const pct = done > 0 ? Math.round((correct / done) * 100) : 0;
+
+  const cells = questions.map((q, i) => {
+    let cls = 'cell-unanswered';
+    if (answered(q)) cls = isCorrect(q) ? 'cell-correct' : 'cell-wrong';
+    return `<div class="grid-cell ${cls}" onclick="goToQ(${i})" title="Q${q.num}">${q.num}</div>`;
+  }).join('');
+
+  document.getElementById('main-content').innerHTML = `
+    <div class="score-panel" style="margin-bottom:24px;">
+      <div class="score-card score-correct">
+        <div class="score-num">${correct}</div>
+        <div class="score-label">Correct</div>
+      </div>
+      <div class="score-card score-wrong">
+        <div class="score-num">${wrong}</div>
+        <div class="score-label">Incorrect</div>
+      </div>
+      <div class="score-card score-remaining">
+        <div class="score-num">${total - done}</div>
+        <div class="score-label">Unanswered</div>
+      </div>
+    </div>
+    <div class="question-card" style="padding:24px;">
+      <div style="text-align:center;margin-bottom:24px;">
+        <div style="font-family:'DM Serif Display',serif;font-size:48px;color:var(--navy);">${pct}%</div>
+        <div style="color:var(--gray-400);font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:.5px;">${done} of ${total} attempted</div>
+      </div>
+      <p class="section-h">Question Map</p>
+      <div class="summary-grid">${cells}</div>
+    </div>
+  `;
+  updateProgress();
+}
+
+function renderReview() {
+  const cards = questions.map((q, i) => {
+    const ans = answers[q.num];
+    const optHtml = Object.entries(q.options).map(([letter, text]) => {
+      let cls = '';
+      if (ans) {
+        if (letter === ans.correct) cls = 'correct';
+        else if (letter === ans.selected && letter !== ans.correct) cls = 'wrong';
+      }
+      return `<button class="option ${cls}" disabled>
+        <div class="option-letter">${letter}</div>
+        <div class="option-text">${text}</div>
+      </button>`;
+    }).join('');
+
+    let expHtml = '';
+    if (ans?.explanation) {
+      const headCls = ans.isCorrect ? 'correct-head' : 'wrong-head';
+      expHtml = `<div class="explanation-box">
+        <div class="exp-header ${headCls}">${ans.isCorrect ? '✓ Correct' : '✗ Incorrect'}</div>
+        <div class="exp-body">${ans.explanation}</div>
+      </div>`;
+    }
+
+    return `<div class="question-card" style="margin-bottom:20px;">
+      <div class="q-header">
+        <span class="q-num">Q${q.num}</span>
+        ${isStarred(q) ? '<span class="tag tag-starred">★ Priority</span>' : ''}
+      </div>
+      <div class="q-body">
+        <div class="q-text" style="font-size:15px;">${q.text.replace('(★)','').replace('★','').trim()}</div>
+        <div class="options">${optHtml}</div>
+        ${expHtml}
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('main-content').innerHTML = cards;
+  updateProgress();
+}
+
+function goToQ(idx) {
+  currentIdx = idx;
+  setMode('quiz');
+}
+
+function setMode(m) {
+  mode = m;
+  ['quiz','review','summary'].forEach(x => {
+    document.getElementById('mode-'+x).classList.toggle('active', x === m);
+  });
+  render();
+}
+
+function shuffleQuestions() {
+  for (let i = questions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [questions[i], questions[j]] = [questions[j], questions[i]];
+  }
+  currentIdx = 0;
+  showToast('Questions shuffled!');
+  render();
+}
+
+function resetAll() {
+  if (!confirm('Reset all progress?')) return;
+  answers = {};
+  currentIdx = 0;
+  questions = [...QUESTIONS];
+  updateHeaderStats();
+  showToast('Progress reset.');
+  render();
+}
+
+// ── KEYBOARD NAV ──
+document.addEventListener('keydown', e => {
+  if (mode !== 'quiz') return;
+  if (['A','B','C','D'].includes(e.key.toUpperCase()) && !answers[questions[currentIdx].num]) {
+    selectAnswer(e.key.toUpperCase(), questions[currentIdx].num);
+  }
+  if (e.key === 'ArrowRight') navigate(1);
+  if (e.key === 'ArrowLeft') navigate(-1);
+});
+
+// ── INIT ──
+render();
+</script>
+</body>
+</html>
