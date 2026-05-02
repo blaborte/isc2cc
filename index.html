@@ -70,6 +70,12 @@
   body.dark .section-count { background: #21262d; color: #6e7681; }
   body.dark .resource-card[style*="dashed"] { border-color: #30363d; }
   body.dark .featured-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 4px 16px rgba(59,130,246,0.15); }
+  body.dark .size-btn { background: #21262d; border-color: #30363d; }
+  body.dark .size-btn:hover { background: rgba(59,130,246,0.12); border-color: var(--accent); }
+  body.dark .size-btn.full { background: var(--accent); border-color: var(--accent); }
+  body.dark .size-btn .size-num { color: #60a5fa; }
+  body.dark .size-btn .size-sub { color: #6e7681; }
+  body.dark .size-divider { background: #30363d; }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -306,21 +312,13 @@
     border-radius: 4px;
   }
 
-  /* ── FEATURED CARD ── */
-  .featured-card {
+  /* ── FEATURED CARD / EXAM LAUNCHER ── */
+  .exam-launcher {
     background: var(--card-bg);
     border: 1.5px solid var(--card-bdr);
     border-radius: var(--r);
     box-shadow: var(--shadow-lg);
     overflow: hidden;
-    transition: all 0.25s ease;
-    text-decoration: none;
-    display: block;
-  }
-  .featured-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 20px 60px rgba(11,29,58,0.16), 0 4px 16px rgba(37,99,235,0.10);
-    border-color: rgba(37,99,235,0.25);
   }
 
   .fc-top {
@@ -361,13 +359,83 @@
     font-weight: 300; max-width: 480px;
   }
 
+  /* ── SIZE SELECTOR ── */
   .fc-bottom {
-    padding: 20px 32px;
+    padding: 24px 32px;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .size-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    color: var(--gray-500);
+  }
+
+  .size-options {
+    display: flex;
+    gap: 10px;
     flex-wrap: wrap;
-    gap: 16px;
+    align-items: center;
+  }
+
+  .size-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 2px solid var(--card-bdr);
+    background: var(--gray-100);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    font-family: 'Outfit', sans-serif;
+    text-decoration: none;
+    min-width: 72px;
+  }
+  .size-btn:hover {
+    border-color: var(--accent);
+    background: rgba(37,99,235,0.06);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(37,99,235,0.14);
+  }
+  .size-btn.full {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 4px 14px rgba(37,99,235,0.28);
+  }
+  .size-btn.full:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    box-shadow: 0 6px 20px rgba(37,99,235,0.38);
+  }
+  .size-btn.full .size-num,
+  .size-btn.full .size-sub { color: white; }
+
+  .size-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .size-sub {
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gray-500);
+  }
+  .size-btn.full .size-num { font-size: 14px; font-weight: 600; }
+
+  .size-divider {
+    width: 1px; height: 40px;
+    background: var(--card-bdr);
+    margin: 0 4px;
   }
 
   .fc-chips { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -378,20 +446,6 @@
     font-size: 12px; font-weight: 500;
     padding: 4px 10px; border-radius: 6px;
   }
-
-  .fc-cta {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--accent);
-    color: white;
-    font-size: 14px; font-weight: 600;
-    padding: 10px 20px; border-radius: 10px;
-    text-decoration: none;
-    transition: all 0.2s;
-    box-shadow: 0 4px 14px rgba(37,99,235,0.28);
-  }
-  .fc-cta:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(37,99,235,0.35); }
-  .fc-cta-arrow { transition: transform 0.2s; }
-  .fc-cta:hover .fc-cta-arrow { transform: translateX(3px); }
 
   /* ── RESOURCE GRID ── */
   .resource-grid {
@@ -591,27 +645,48 @@
       <span class="section-count">FEATURED</span>
     </div>
 
-    <a class="featured-card" href="isc2_cc_practice_exam.html">
+    <div class="exam-launcher">
       <div class="fc-top">
         <div class="fc-badge">✦ AI-Powered</div>
-        <div class="fc-title">ISC² CC — Full Practice Exam</div>
+        <div class="fc-title">ISC² CC — Practice Exam</div>
         <div class="fc-desc">
-          205 curated exam-style questions with AI-generated explanations after each answer. Track your score in real time, shuffle questions, and review your weak areas.
+          205 curated exam-style questions with AI-generated explanations. Choose how many questions you want to tackle — quick drill or full simulation.
         </div>
       </div>
       <div class="fc-bottom">
+        <div class="size-label">Choose your session length</div>
+        <div class="size-options">
+          <a class="size-btn" href="isc2_cc_practice_exam.html?count=10">
+            <span class="size-num">10</span>
+            <span class="size-sub">Quick</span>
+          </a>
+          <a class="size-btn" href="isc2_cc_practice_exam.html?count=20">
+            <span class="size-num">20</span>
+            <span class="size-sub">Short</span>
+          </a>
+          <a class="size-btn" href="isc2_cc_practice_exam.html?count=30">
+            <span class="size-num">30</span>
+            <span class="size-sub">Medium</span>
+          </a>
+          <a class="size-btn" href="isc2_cc_practice_exam.html?count=100">
+            <span class="size-num">100</span>
+            <span class="size-sub">Long</span>
+          </a>
+          <div class="size-divider"></div>
+          <a class="size-btn full" href="isc2_cc_practice_exam.html?count=205">
+            <span class="size-num">Full Exam</span>
+            <span class="size-sub">All 205 Qs</span>
+          </a>
+        </div>
         <div class="fc-chips">
-          <span class="chip">📋 205 Questions</span>
           <span class="chip">🤖 AI Explanations</span>
           <span class="chip">📊 Score Tracking</span>
           <span class="chip">🔀 Shuffle Mode</span>
+          <span class="chip">📋 Q Navigator</span>
           <span class="chip">⌨️ Keyboard Nav</span>
         </div>
-        <span class="fc-cta">
-          Start Exam <span class="fc-cta-arrow">→</span>
-        </span>
       </div>
-    </a>
+    </div>
   </section>
 
   <!-- DOMAIN TOPICS -->

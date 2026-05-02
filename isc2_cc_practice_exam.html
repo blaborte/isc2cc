@@ -660,7 +660,7 @@
   <div class="header-inner">
     <div class="brand">
       <span class="brand-badge">ISC²</span>
-      <span class="brand-title">CC Practice Exam</span>
+      <span class="brand-title" id="brand-title">CC Practice Exam</span>
     </div>
     <div class="header-right">
       <div class="header-stats">
@@ -737,6 +737,29 @@ let questions = [...QUESTIONS];
 let currentIdx = 0;
 let answers = {};
 let mode = 'quiz';
+
+// ── SESSION SIZE FROM URL ──
+(function initSessionSize() {
+  const params = new URLSearchParams(window.location.search);
+  const countParam = parseInt(params.get('count'));
+  const totalAvail = QUESTIONS.length;
+
+  if (countParam && countParam > 0 && countParam < totalAvail) {
+    // Shuffle and slice to the requested count
+    const shuffled = [...QUESTIONS].sort(() => Math.random() - 0.5);
+    questions = shuffled.slice(0, countParam);
+    // Update brand title
+    document.getElementById('brand-title').textContent = `CC Practice — ${countParam} Questions`;
+    document.title = `ISC2 CC Practice (${countParam}Q)`;
+    // Show session badge in header
+    const badge = document.createElement('span');
+    badge.className = 'stat-pill';
+    badge.innerHTML = `<span>🎯</span><strong>${countParam}-Q</strong> session`;
+    badge.style.cssText = 'background:rgba(245,158,11,0.18);';
+    document.querySelector('.header-stats').prepend(badge);
+  }
+  // If count=205 or missing, use all questions as-is
+}());
 
 // ── DARK MODE ──
 function toggleDark() {
@@ -1005,7 +1028,14 @@ function resetAll() {
   if (!confirm('Reset all progress?')) return;
   answers = {};
   currentIdx = 0;
-  questions = [...QUESTIONS];
+  const params = new URLSearchParams(window.location.search);
+  const countParam = parseInt(params.get('count'));
+  if (countParam && countParam > 0 && countParam < QUESTIONS.length) {
+    const shuffled = [...QUESTIONS].sort(() => Math.random() - 0.5);
+    questions = shuffled.slice(0, countParam);
+  } else {
+    questions = [...QUESTIONS];
+  }
   updateHeaderStats();
   showToast('Progress reset.');
   render();
