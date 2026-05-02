@@ -30,6 +30,47 @@
     --r:         14px;
   }
 
+  /* ── DARK MODE OVERRIDES ── */
+  body.dark {
+    --navy:      #0d1b2e;
+    --navy-mid:  #0f2040;
+    --blue:      #0f2a52;
+    --accent:    #3b82f6;
+    --accent-2:  #60a5fa;
+    --gold:      #fbbf24;
+    --off-white: #0d1117;
+    --gray-100:  #21262d;
+    --gray-300:  #6e7681;
+    --gray-500:  #8b949e;
+    --gray-700:  #c9d1d9;
+    --text:      #e6edf3;
+
+    --card-bg:   rgba(22,27,34,0.98);
+    --card-bdr:  rgba(59,130,246,0.18);
+    --glow:      0 0 40px rgba(59,130,246,0.12);
+    --shadow:    0 4px 24px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.25);
+    --shadow-lg: 0 12px 48px rgba(0,0,0,0.45), 0 4px 12px rgba(0,0,0,0.3);
+  }
+
+  body { transition: background 0.2s, color 0.2s; }
+
+  body.dark .wave {
+    background: #0d1117;
+  }
+  body.dark footer {
+    border-color: #21262d;
+    color: #6e7681;
+  }
+  body.dark .rc-title { color: #c9d1d9; }
+  body.dark .tag-live    { background: #0d2818; color: #4ade80; }
+  body.dark .tag-coming  { background: #2a1f0a; color: #fbbf24; }
+  body.dark .tag-ext     { background: #1e3a5f; color: #93c5fd; }
+  body.dark .chip { background: #21262d; color: #c9d1d9; }
+  body.dark .section-title { color: #93c5fd; }
+  body.dark .section-count { background: #21262d; color: #6e7681; }
+  body.dark .resource-card[style*="dashed"] { border-color: #30363d; }
+  body.dark .featured-card:hover { box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 4px 16px rgba(59,130,246,0.15); }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
@@ -122,6 +163,23 @@
     color: white;
     background: rgba(255,255,255,0.08);
     border-color: rgba(255,255,255,0.1);
+  }
+  .btn-dark-mode {
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.07);
+    transition: all 0.2s;
+    font-family: 'Outfit', sans-serif;
+  }
+  .btn-dark-mode:hover {
+    color: white;
+    background: rgba(255,255,255,0.13);
+    border-color: rgba(255,255,255,0.22);
   }
 
   /* ── HERO TEXT ── */
@@ -476,6 +534,7 @@
         <a class="nav-link" href="https://blaborte.github.io" target="_blank">Portfolio</a>
         <a class="nav-link" href="https://blaborte.github.io/CompTIA-Sec-S0Y-701" target="_blank">Security+</a>
         <a class="nav-link" href="https://www.linkedin.com/in/baltazarlaborte" target="_blank">LinkedIn</a>
+        <button class="btn-dark-mode" onclick="toggleDark()" id="dark-btn">🌙 Dark</button>
       </div>
     </nav>
 
@@ -716,5 +775,16 @@
   <p>Built by <strong>Baltazar Laborte</strong> · ISC² CC Study Hub · Not affiliated with ISC²</p>
 </footer>
 
+<script>
+function toggleDark() {
+  const isDark = document.body.classList.toggle('dark');
+  document.getElementById('dark-btn').textContent = isDark ? '☀️ Light' : '🌙 Dark';
+  localStorage.setItem('bl-dark', isDark ? '1' : '0');
+}
+if (localStorage.getItem('bl-dark') === '1') {
+  document.body.classList.add('dark');
+  document.getElementById('dark-btn').textContent = '☀️ Light';
+}
+</script>
 </body>
 </html>
